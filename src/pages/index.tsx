@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Inter, Mountains_of_Christmas } from "next/font/google";
 import { ExpenseCard } from "@/components/ExpenseCard";
 import { Expense } from "@/types";
+import Addexpensecard from "@/components/Addexpensecard";
 const inter = Inter({ subsets: ["latin"] });
 
 export const tempExpenses: Expense[] = [
@@ -170,9 +171,11 @@ export const tempExpenses: Expense[] = [
 export default function Home() {
   return (
     <div className="bg-white">
-      {tempExpenses.map((expense) => (
+      {/* {tempExpenses.map((expense) => (
         <ExpenseCard expense={expense} />
-      ))}
+      ))} */}
+
+      <Addexpensecard/>
     </div>
   );
 }

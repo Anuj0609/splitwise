@@ -1,4 +1,5 @@
 import React from "react";
+import DatePicker from "react-datepicker";
 
 function Addexpensecard({ handlePopupClose }) {
   return (
@@ -51,9 +52,7 @@ function Addexpensecard({ handlePopupClose }) {
       </div>
       <div className="flex flex-col m-4">
         <div className="flex flex-row gap-5 m-3">
-          <button className="rounded-xl bg-gray-100 px-6 py-0 border  border-gray-500 from-neutral-200 text-gray-500 text-sm">
-            August 8, 2024
-          </button>
+          <DatePicker />
           <button className="rounded-xl bg-gray-100 px-6 py-0 border  border-gray-500 from-neutral-200  text-gray-500 text-sm">
             Add image/notes
           </button>

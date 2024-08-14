@@ -1,15 +1,33 @@
 import React, { useState } from "react";
 import DatepickerWithIcon from "./DatepickerWithIcon";
 
-function Addexpensecard({ handlePopupClose }) {
-  const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
+function AddExpenseCard({ handlePopupClose }: any) {
+  const [description, setDescription] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
+  const [date, setDate] = useState<string>('')
+  const [payee, setPayee] = useState<string>("you")
+  const [lent, setLent] = useState<string>("all")
+  const [category, setCategory] = useState<string>("")
+  const [yourShare, setYourShare] = useState<number>(0);
 
-  const handleDescriptionChange = (e) => {
+  const addExpense = () => {
+    const expenseDetails = {
+      description: description,
+      amount: amount,
+      date: date,
+      payee: payee,
+      lent: lent,
+      category: category,
+      your_share: yourShare
+    }
+
+  }
+
+  const handleDescriptionChange = (e: any) => {
     setDescription(e.target.value);
   };
 
-  const handleAmountChange = (e) => {
+  const handleAmountChange = (e: any) => {
     setAmount(e.target.value);
   };
 
@@ -42,20 +60,19 @@ function Addexpensecard({ handlePopupClose }) {
             value={description}
             onChange={handleDescriptionChange}
             placeholder="Enter a description"
-            className="text-gray-700 text-xl border-b border-dashed border-gray-300 w-full focus:outline-none"
+            className="text-gray-700 text-3xl border-b border-dashed border-gray-300 w-full focus:outline-none"
           />
-          <hr className="border-t border-dashed border-gray-300 mt-2" />
 
           <div className="flex flex-row ml-5 mt-1 space-x-2">
             <span className="text-2xl pb-0 mb-0 mt-2 leading-none">
               &#8377;
             </span>
             <input
-              type="text"
+              type="number"
               value={amount}
               onChange={handleAmountChange}
               placeholder="0.00"
-              className="text-3xl text-gray-700 w-full focus:outline-none"
+              className="text-2xl text-gray-700 w-full focus:outline-none"
             />
           </div>
           <hr className="border-t border-dashed border-gray-300 mt-2" />
@@ -95,7 +112,8 @@ function Addexpensecard({ handlePopupClose }) {
         >
           Cancel
         </button>
-        <button className="bg-[#5cc5a7] rounded-md px-3 py-2 gap-2 my-2 mx-2 border-gray-500 text-gray-500">
+        <button className="bg-[#5cc5a7] rounded-md px-3 py-2 gap-2 my-2 mx-2 border-gray-500 text-gray-500"
+          onClick={addExpense}>
           Save
         </button>
       </div>
@@ -103,4 +121,4 @@ function Addexpensecard({ handlePopupClose }) {
   );
 }
 
-export default Addexpensecard;
+export default AddExpenseCard;

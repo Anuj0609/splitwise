@@ -1,34 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatepickerWithIcon from "./DatepickerWithIcon";
+import { Expense } from "@/types";
+import { getExpenseList } from "@/utils/expenseUtils";
 
-function AddExpenseCard({ handlePopupClose }: any) {
+export const AddExpenseCard = ({ handlePopupClose }: any) => {
   const [description, setDescription] = useState<string>("");
-  const [amount, setAmount] = useState<string>("");
-  const [date, setDate] = useState<string>('')
-  const [payee, setPayee] = useState<string>("you")
-  const [lent, setLent] = useState<string>("all")
-  const [category, setCategory] = useState<string>("")
+  const [amount, setAmount] = useState<number>(0);
+  const [date, setDate] = useState<string>("");
+  const [payee, setPayee] = useState<string>("you");
+  const [lent, setLent] = useState<number>(0);
+  const [category, setCategory] = useState<string>("");
   const [yourShare, setYourShare] = useState<number>(0);
+  const [expenseList, setExpenseList] = useState<Expense[]>([]);
+  const [name, setName] = useState<string>("");
 
   const addExpense = () => {
-    const expenseDetails = {
-      description: description,
-      amount: amount,
-      date: date,
-      payee: payee,
-      lent: lent,
-      category: category,
-      your_share: yourShare
+    console.log(description, amount, date);
+    if (description && amount && date) {
+      const expenseDetails: Expense = {
+        name,
+        description,
+        amount,
+        date,
+        payee,
+        lent,
+        category,
+        your_share: yourShare,
+        icon: "",
+      };
+
+      const updatedExpenseList = [...expenseList, expenseDetails];
+      localStorage.setItem("expenseLists", JSON.stringify(updatedExpenseList));
+      console.log("Saved Expense:", updatedExpenseList);
+      setExpenseList(updatedExpenseList);
+      handlePopupClose();
     }
+  };
 
-  }
+  useEffect(() => {
+    const list = getExpenseList();
+    setExpenseList(list);
+  }, []);
 
-  const handleDescriptionChange = (e: any) => {
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDescription(e.target.value);
   };
 
-  const handleAmountChange = (e: any) => {
-    setAmount(e.target.value);
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(Number(e.target.value));
   };
 
   return (
@@ -60,7 +79,7 @@ function AddExpenseCard({ handlePopupClose }: any) {
             value={description}
             onChange={handleDescriptionChange}
             placeholder="Enter a description"
-            className="text-gray-700 text-3xl border-b border-dashed border-gray-300 w-full focus:outline-none"
+            className="text-gray-700 text-2xl border-b border-dashed border-gray-300 w-full focus:outline-none"
           />
 
           <div className="flex flex-row ml-5 mt-1 space-x-2">
@@ -72,6 +91,7 @@ function AddExpenseCard({ handlePopupClose }: any) {
               value={amount}
               onChange={handleAmountChange}
               placeholder="0.00"
+              min="0"
               className="text-2xl text-gray-700 w-full focus:outline-none"
             />
           </div>
@@ -92,13 +112,13 @@ function AddExpenseCard({ handlePopupClose }: any) {
       </div>
       <div className="flex flex-col m-4">
         <div className="flex flex-row gap-5 m-3 items-center">
-          <DatepickerWithIcon />
-          <button className="rounded-xl bg-gray-100 px-6 py-0 border  border-gray-500 from-neutral-200  text-gray-500 text-sm">
+          <DatepickerWithIcon date={date} setDate={setDate} />
+          <button className="rounded-xl bg-gray-100 px-6 py-0 border border-gray-500 from-neutral-200 text-gray-500 text-sm">
             Add image/notes
           </button>
         </div>
         <div className="flex justify-center">
-          <button className="rounded-xl bg-gray-100  px-5 py-0 border  border-gray-500 from-neutral-200  text-gray-500 text-sm">
+          <button className="rounded-xl bg-gray-100 px-5 py-0 border border-gray-500 from-neutral-200 text-gray-500 text-sm">
             AWARA Dehradun
           </button>
         </div>
@@ -112,13 +132,13 @@ function AddExpenseCard({ handlePopupClose }: any) {
         >
           Cancel
         </button>
-        <button className="bg-[#5cc5a7] rounded-md px-3 py-2 gap-2 my-2 mx-2 border-gray-500 text-gray-500"
-          onClick={addExpense}>
+        <button
+          className="bg-[#5cc5a7] rounded-md px-3 py-2 gap-2 my-2 mx-2 border-gray-500 text-gray-500"
+          onClick={addExpense}
+        >
           Save
         </button>
       </div>
     </div>
   );
-}
-
-export default AddExpenseCard;
+};

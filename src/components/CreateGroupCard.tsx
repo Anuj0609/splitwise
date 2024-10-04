@@ -135,9 +135,7 @@
 
 import React from "react";
 
-const CreateGroupPage()=>{
-  return(
-    <div>hi</div>
-  )
-}
-export default CreateGroupPage
+const CreateGroupPage = () => {
+  return <div>hi</div>;
+};
+export default CreateGroupPage;

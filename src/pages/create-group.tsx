@@ -10,6 +10,9 @@ const CreateGroupPage = () => {
     members: [],
     profilePicture: "",
   });
+  const createGroup = () => {};
+  const handleMemberChange = () => {};
+  const handleAddMember = () => {};
 
   return (
     <div className="flex flex-col justify-center">
@@ -81,18 +84,18 @@ const CreateGroupPage = () => {
                   type="text"
                   placeholder="Name"
                   value={member.name}
-                  onChange={(e) =>
-                    handleMemberChange(index, "name", e.target.value)
-                  }
+                  onChange={(e) => {
+                    // handleMemberChange(index, "name", e.target.value)
+                  }}
                   className="mr-2 border border-gray-400 rounded-md shadow-lg px-2 py-1 text-xs"
                 />
                 <input
                   type="email"
                   placeholder="Email Address (optional)"
                   value={member.email}
-                  onChange={(e) =>
-                    handleMemberChange(index, "email", e.target.value)
-                  }
+                  onChange={(e) => {
+                    // handleMemberChange(index, "email", e.target.value)
+                  }}
                   className="mr-2 border border-gray-400 rounded-md shadow-lg px-2 py-1 text-xs"
                 />
               </div>
